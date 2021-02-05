@@ -1,0 +1,114 @@
+.Dropdown {
+    display: block;
+    padding: 0 1.0rem;
+    text-transform: capitalize;
+    border-radius: 2px;
+    height: 45px;
+    cursor: pointer;    
+}
+
+li .Dropdown:hover {  
+    background-color: #eee;
+    color: #0f7c90;
+    font-weight: 400;
+}
+
+.AlignIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+}
+
+.IconLeft {
+    padding-left : 3px;
+}
+
+.IconRight {
+    padding-right : 3px;
+}
+
+.dropdownItems {
+    position: absolute;
+    display: block;
+    margin-top: 4px;
+    background-color: white;
+    width: 15rem;
+    min-height: 100px;
+    padding: 0;
+    border-bottom-left-radius: 2px;
+    border-radius: 2px;
+    border-top: 1px solid #e8e9eb;
+    box-shadow: 0 2px 8px rgb(20 23 28 / 25%);
+    z-index: 1550;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100px);
+    transition: all 600ms;
+}
+
+.dropdownItems li a {
+    display: block;
+    color: #222;
+    padding: 8px 30px; 
+    text-transform: capitalize;
+}
+
+.dropdownItems li a:hover {
+    color: #0f7c90;
+    font-weight: 400;
+}
+
+a.Dropdown:hover + ul.dropdownItems { 
+    transform: translateY(0px);
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdownItems:hover {
+    transform: translateY(0px);
+    opacity: 1;
+    visibility: visible; 
+}
+
+.searchForm {
+    width: 50%;
+    height: 80%;
+}
+
+.searchForm input {
+    display: inline-block;
+    outline: none;
+    width: 100%;
+    padding: 0;
+    position: relative;
+    height: 35px;
+    margin: auto 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: transparent;
+    padding: 10px;
+    font-weight: 100;
+}
+
+.searchForm svg {  
+    color: #c1272d;    
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-left: transparent;
+    padding: 5px;
+    height: 35px;
+    border-radius: 2px;
+    font-size: 2.5rem;  
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px; 
+    font-weight: bold; 
+}
+
+.searchForm svg:hover {
+    background-color: #c1272d;
+    color: #fff;
+}
