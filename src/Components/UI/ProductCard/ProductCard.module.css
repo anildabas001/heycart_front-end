@@ -1,31 +1,31 @@
 .ProductCard {
-    max-width: 300px;
+    max-width: 220px;
     display: flex;
-    padding: 15px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #fff;
+    border-radius: 2px;
     height: 290px;
     text-align: center;
     word-break: break-all;
-    margin: 5px;
     cursor: pointer;
+    padding-bottom: 5px;
+    margin: 5px auto;    
 }
 
 .ProductCard:hover {
     box-shadow: 0 2px 8px rgb(20 23 28 / 25%);
 }
 
-.ProductImage {
-    height: 150px;
-    min-height: 150px;
-    width: 100%;
+.ProductImage { 
+    min-height: 146px;
     margin-bottom: 5px;
+    border-radius: 2px;
 }
 
 .ProductImage img {
-    max-width: 100%;
+    margin: 0 auto;
+    max-width: 100%;    
     height: auto;
 }
 

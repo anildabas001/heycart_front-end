@@ -4,7 +4,7 @@ import Section from '../UI/Section/Section';
 import SectionHeading from '../UI/SectionHeading/SectionHeading';
 import classes from './DealSection.module.css';
 import ProductSlider from '../UI/ProductSlider/ProductSlider';
-
+import egg from '../../Assets/egg_cat.jpg'
 
 const DealSection = (props) => {    
 
@@ -22,7 +22,8 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 10
                     },
-                    discount: 0
+                    discount: 0,
+                    source: egg
                 }}/>
                 <ProductCard product={{
                     name: 'Tata Salt',
@@ -34,7 +35,8 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 5
                     },
-                    discount: 50
+                    discount: 50,
+                    source: egg
                 }}
                 />
                 <ProductCard product={{
@@ -47,7 +49,8 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 5
                     },
-                    discount: 50
+                    discount: 50,
+                    source: egg
                 }}
                 />
                 <ProductCard product={{
@@ -60,7 +63,8 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 5
                     },
-                    discount: 50
+                    discount: 50,
+                    source: egg
                 }}
                 />
                 <ProductCard product={{
