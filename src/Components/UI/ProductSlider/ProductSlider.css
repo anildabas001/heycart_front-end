@@ -1,0 +1,12 @@
+
+.slick-prev:before {
+    color: black;
+}
+
+.slick-next:before {
+    color: black;
+}
+
+/* .slick-track div{ 
+    margin: 5px auto;
+} */

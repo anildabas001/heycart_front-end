@@ -1,0 +1,21 @@
+.SectionHeading {
+    font-weight: 300;
+    font-size: 3rem;
+    word-spacing: 1.1px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+.SectionHeading::after {
+    margin: 0 auto;
+    content: " ";
+    display: block;
+    background-color: #0f7c90;
+    position: relative;
+    width: 220px;
+    height: 2px;
+    margin-top: 20px;
+}

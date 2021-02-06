@@ -10,8 +10,9 @@ body {
 
 html, body {
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;  
+  overflow-x: hidden; 
 }
+
 
 * {
   margin: 0;
