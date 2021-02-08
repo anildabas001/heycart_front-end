@@ -1,0 +1,41 @@
+.AuthenticationForm {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+
+.FormContainer {
+    width: 40%;
+    color: #222;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 16px rgb(20 23 28 / 25%);
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 60px;
+    border: 1px solid #eee;
+    text-transform: capitalize;
+    text-align: center;    
+    font-weight: 300;
+}
+
+.FormContainer h2 {
+    text-align: center;
+    width: 30%;
+    margin: 0 auto;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #C1272D;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+.AuthLink a:link,
+.AuthLink a:visited,
+.AuthLink a:active{
+    display: inline-block;
+    padding-top: 20px;
+    font-size: .9rem;
+    color: #0f7c90;
+    text-decoration: none;
+}
