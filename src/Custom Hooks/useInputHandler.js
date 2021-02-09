@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import { IoBandage } from 'react-icons/io5';
 
-const useInputHandler = () => {
+const useInputHandler = (states, updateStates) => {
 
     const validate = (fieldState, value) => {
         let errorMessage = [];
@@ -37,11 +38,13 @@ const useInputHandler = () => {
         }
 
         return {isValid, errorMessage};
-    }    
+    };  
 
-    const fieldChangeHandler = (fieldState, setFieldState, event) => {
+    const fieldChangeHandler = useCallback((fieldState, setFieldState, event) => {  
+
         var isTouched = true;
         isTouched = event.target.value.length < 1 ?  false : true;
+
         setFieldState((currentState)=>{
             return{
                 ...currentState,
@@ -52,7 +55,6 @@ const useInputHandler = () => {
         });
 
         const {isValid, errorMessage} = validate(fieldState, event.target.value);
-        console.log(isValid, errorMessage);
 
         setFieldState((currentState)=>{            
             return{
@@ -61,9 +63,9 @@ const useInputHandler = () => {
                 errorMessage
             }
         });
-    }    
+    }, []);    
 
-    const formSubmitHandler = (fields, event) => {
+    const formSubmitHandler = useCallback((fields, event) => {
         event.preventDefault();
         let valid = true;
 
@@ -72,7 +74,7 @@ const useInputHandler = () => {
             const fieldState = field[state];
             const updateFieldState = field[updateState];
             valid = fieldState.isValid && valid;
-            
+
              if(!valid) {
                 updateFieldState( currentField => {
                      return {
@@ -86,9 +88,10 @@ const useInputHandler = () => {
         if(valid) {
             alert('Log in successfull');
         }
-    }
+    }, []);
 
     return [fieldChangeHandler, formSubmitHandler];
-}
+
+};
 
 export default useInputHandler;

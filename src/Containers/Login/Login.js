@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import useInputHandler from '../../Custom Hooks/useInputHandler';
 import AuthenticationForm from '../../Components/UI/AuthenticationForm/AuthenticationForm';
 import InputField from '../../Components/UI/InputField/InputField';
@@ -47,8 +47,8 @@ const Login = (props) => {
 
     return (
          <AuthenticationForm formSubmitHandler={(event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}], event)} AuthFormType='Login' heading="Login Form">
-            <InputField showErrorMessage={emailState.showErrorMessage} errorMessage={emailState.errorMessage[0]} isTouched={emailState.isTouched} isValid={emailState.isValid} fieldName={emailState.fieldName} fieldAttributes ={emailState.fieldAttributes} value={emailState.value} changeHandler = {(event) => {fieldChangeHandler(emailState, setEmailState, event)}}/>
-            <InputField showErrorMessage={passwordState.showErrorMessage} errorMessage={passwordState.errorMessage[0]} isTouched={passwordState.isTouched} isValid={passwordState.isValid} fieldName={passwordState.fieldName} fieldAttributes ={passwordState.fieldAttributes} value={passwordState.value} changeHandler = {(event) => {fieldChangeHandler(passwordState, setPasswordState, event)}}/>  
+            <InputField showErrorMessage={emailState.showErrorMessage} errorMessage={emailState.errorMessage[0]} isTouched={emailState.isTouched} isValid={emailState.isValid} fieldName={emailState.fieldName} fieldAttributes ={emailState.fieldAttributes} value={emailState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(emailState, setEmailState, event)}, [emailState, fieldChangeHandler])}/>
+            <InputField showErrorMessage={passwordState.showErrorMessage} errorMessage={passwordState.errorMessage[0]} isTouched={passwordState.isTouched} isValid={passwordState.isValid} fieldName={passwordState.fieldName} fieldAttributes ={passwordState.fieldAttributes} value={passwordState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(passwordState, setPasswordState, event)}, [])}/>  
          </AuthenticationForm>
     );
 } 

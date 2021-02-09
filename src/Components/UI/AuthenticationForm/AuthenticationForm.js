@@ -7,7 +7,8 @@ import HeyCartLogo from '../../../Assets/HeyCartLogo.png';
 import Icon from '../Icon/Icon';
 import {Link} from 'react-router-dom';
 
-const AuthenticationForm = (props) => {
+const AuthenticationForm = (props) => {    
+    
     return (
         <div className={classes.AuthenticationForm}>
             <Icon source={HeyCartLogo} description='HeyCart Logo'></Icon>

@@ -1,7 +1,9 @@
 import React, {memo} from 'react';
 import classes from './InputField.module.css';
 import ErrorField from '../ErrorField/ErrorField';
+
 const InputField = (props, ref) => {
+    console.log(props.fieldAttributes.label);
     switch(props.fieldName) {
         case 'input': 
             let inputClass;
