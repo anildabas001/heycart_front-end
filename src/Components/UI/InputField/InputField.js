@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import classes from './InputField.module.css';
 import ErrorField from '../ErrorField/ErrorField';
-const InputField = (props) => {
+const InputField = (props, ref) => {
     switch(props.fieldName) {
         case 'input': 
             let inputClass;
@@ -19,7 +19,7 @@ const InputField = (props) => {
                 <div className={classes.InputFieldContainer}>
                     <div className={classes.FieldRow}>
                         <label htmlFor={props.fieldAttributes.name}>{props.fieldAttributes.label}</label>
-                        <input className={inputClass} type={props.fieldAttributes.type} value={props.fieldAttributes.value} name={props.fieldAttributes.name} id={props.fieldAttributes.name} onChange={props.changeHandler} />
+                        <input ref={ref} className={inputClass} type={props.fieldAttributes.type} value={props.fieldAttributes.value} name={props.fieldAttributes.name} id={props.fieldAttributes.name} onChange={props.changeHandler} />
                     </div>                    
                     {props.errorMessage && props.showErrorMessage ? <ErrorField>{props.errorMessage}</ErrorField>: null}
                 </div>
@@ -27,4 +27,4 @@ const InputField = (props) => {
     }
 }
 
-export default memo(InputField);
+export default memo(React.forwardRef(InputField));
