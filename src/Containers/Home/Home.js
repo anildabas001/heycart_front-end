@@ -5,6 +5,8 @@ import CategorySection from '../../Components/CategorySection/CategorySection';
 import AboutSection from '../../Components/AboutSection/AboutSection';
 
 const Home = (props) => {
+    console.log(props);
+    console.log(props.route);
     return (
         <>
             <ImageSection />

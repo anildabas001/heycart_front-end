@@ -1,0 +1,26 @@
+.ProductsSection {
+    display: block;
+    margin-left: 1%;
+    border-radius: 4px;
+    padding: 13px 0 12px;
+    background-color: #fff;    
+    width: 78%;
+    box-shadow: 0 1px 3px -1px rgb(0 0 0 / 40%);
+    padding: 10px;  
+}
+
+.ProductHeading {
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+    text-transform: capitalize;
+    font-weight: 400;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.productList {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: stretch;
+    
+}
