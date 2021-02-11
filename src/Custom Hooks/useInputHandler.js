@@ -65,7 +65,7 @@ const useInputHandler = (states, updateStates) => {
         });
     }, []);    
 
-    const formSubmitHandler = useCallback((fields, event) => {
+    const formSubmitHandler = useCallback((fields, formSubmitAction, event) => {
         event.preventDefault();
         let valid = true;
 
@@ -86,7 +86,7 @@ const useInputHandler = (states, updateStates) => {
         });
         
         if(valid) {
-            alert('Log in successfull');
+            formSubmitAction();
         }
     }, []);
 

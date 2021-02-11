@@ -9,9 +9,9 @@ function App() {
   return (
     <>
       <Toolbar />
-      <Switch>  
-        <Route path='/' exact  component={Home} />
-      </Switch>
+        <Switch>  
+          <Route path='/' exact  component={Home} />
+        </Switch>
       <Footer />
     </>        
   );

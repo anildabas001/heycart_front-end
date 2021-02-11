@@ -7,7 +7,7 @@ const ImageSection = (props) => {
         <section className={classes.ImageSection}>
             <div className={classes.imageContainer}>
                 <img src={groceryImage}/>
-                <h1  className={classes.heroText}>Fill your Basket with Happiness!!</h1>
+                {/* <h1  className={classes.heroText}>Fill your Basket with Happiness!!</h1> */}
             </div>
         </section>
     );

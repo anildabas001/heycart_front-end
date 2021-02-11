@@ -1,8 +1,10 @@
 import React from 'react';
 import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
+import {withRouter} from 'react-router';
 
 const Navigation = (props) => {
+    console.log(props.history);
     return (
     <ul className={classes.NavigationBar}>
         
@@ -54,11 +56,11 @@ const Navigation = (props) => {
         <NavigationItem type="link" navigationData={
             {
                 name: 'Login',
-                linkTo: '/login'
+                linkTo: '/login'+ `?redirectTo=${props.location.pathname}${props.location.search}`                
             }
         } />       
     </ul>      
     );
 }
 
-export default Navigation;
+export default withRouter(Navigation);

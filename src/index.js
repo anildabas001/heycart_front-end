@@ -6,16 +6,30 @@ import Login from './Containers/Login/Login';
 import Signup from './Containers/Signup/Signup';
 import {BrowserRouter , Switch, Route} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {Provider} from 'react-redux';
+import authReducer from './Store/Reducers/AuthReducer';
 
-ReactDOM.render(
+const reducer = combineReducers(
+  {
+    authentication: authReducer
+  }
+);
+
+const store = createStore(reducer, applyMiddleware(thunk));
+
+ReactDOM.render(  
   <React.StrictMode>
-    <BrowserRouter>
-      <Switch>
-        <Route path='/login' exact component={Login}/>
-        <Route path='/signup' exact component={Signup}/>
-        <Route path='/' component={App}/>        
-      </Switch>
-    </BrowserRouter>    
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/login' exact component={Login}/>
+          <Route path='/signup' exact component={Signup}/>
+          <Route path='/' component={App}/>        
+        </Switch>
+      </BrowserRouter>
+    </Provider>        
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,12 +1,19 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
+import {withRouter} from 'react-router';
 import useInputHandler from '../../Custom Hooks/useInputHandler';
 import AuthenticationForm from '../../Components/UI/AuthenticationForm/AuthenticationForm';
 import InputField from '../../Components/UI/InputField/InputField';
+import * as queryString from 'query-string';
+import {connect} from 'react-redux';
+import {login} from '../../Store/Actions/AuthActions';
+import {Redirect} from 'react-router';
+import Loader from '../../Components/UI/Loader/Loader';
 
 const Login = (props) => {
-
-    const [fieldChangeHandler, formSubmitHandler] = useInputHandler();    
-
+    
+    const [fieldChangeHandler, formSubmitHandler] = useInputHandler();  
+    const [formErrorMessage, setFormErrorMessage] = useState('');
+    const [LoaderState, setLoaderState] = useState(false);
     const [emailState, setEmailState] = useState({
         fieldName: 'input',
         fieldAttributes: {
@@ -45,12 +52,43 @@ const Login = (props) => {
         }
     });  
 
-    return (
-         <AuthenticationForm formSubmitHandler={(event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}], event)} AuthFormType='Login' heading="Login Form">
-            <InputField showErrorMessage={emailState.showErrorMessage} errorMessage={emailState.errorMessage[0]} isTouched={emailState.isTouched} isValid={emailState.isValid} fieldName={emailState.fieldName} fieldAttributes ={emailState.fieldAttributes} value={emailState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(emailState, setEmailState, event)}, [emailState, fieldChangeHandler])}/>
-            <InputField showErrorMessage={passwordState.showErrorMessage} errorMessage={passwordState.errorMessage[0]} isTouched={passwordState.isTouched} isValid={passwordState.isValid} fieldName={passwordState.fieldName} fieldAttributes ={passwordState.fieldAttributes} value={passwordState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(passwordState, setPasswordState, event)}, [])}/>  
-         </AuthenticationForm>
+    const formSubmitAction = () => { 
+        props.loginOnSubmit(emailState.value, passwordState.value, setFormErrorMessage, setLoaderState);
+    }
+
+     useEffect(() => {
+         return () => { 
+            setLoaderState(false);   
+         }
+     }, []);
+
+    const redirectAddress = queryString.parse(props.location.search).redirectTo || '/';
+
+    const AuthForm = (
+    <AuthenticationForm formErrorMessage={formErrorMessage} formSubmitHandler={(event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}], formSubmitAction, event)} AuthFormType='Login' heading="Login Form">        
+        <InputField showErrorMessage={emailState.showErrorMessage} errorMessage={emailState.errorMessage[0]} isTouched={emailState.isTouched} isValid={emailState.isValid} fieldName={emailState.fieldName} fieldAttributes ={emailState.fieldAttributes} value={emailState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(emailState, setEmailState, event)}, [emailState, fieldChangeHandler])}/>
+        <InputField showErrorMessage={passwordState.showErrorMessage} errorMessage={passwordState.errorMessage[0]} isTouched={passwordState.isTouched} isValid={passwordState.isValid} fieldName={passwordState.fieldName} fieldAttributes ={passwordState.fieldAttributes} value={passwordState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(passwordState, setPasswordState, event)}, [])}/>                 
+    </AuthenticationForm>);
+    
+    const FormElement = props.isLoggedin ? <Redirect to={redirectAddress} /> : AuthForm;
+
+    return(
+    <>
+        { LoaderState === true ? <Loader /> : FormElement }
+    </>         
     );
 } 
 
-export default Login;
+const mapDispatchToProps = (dispatch => {
+    return {
+        loginOnSubmit: (email, password, setFormErrorMessage, setLoaderState) => dispatch(login(email, password, setFormErrorMessage, setLoaderState))
+    }
+});
+
+ const mapStateToProps = (state => {
+     return { 
+        isLoggedin: state.authentication.isLoggedin
+     }    
+ });
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

@@ -1,11 +1,38 @@
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState, useRef, useCallback, useEffect} from 'react';
 import useInputHandler from '../../Custom Hooks/useInputHandler';
 import AuthenticationForm from '../../Components/UI/AuthenticationForm/AuthenticationForm';
 import InputField from '../../Components/UI/InputField/InputField';
+import Loader from '../../Components/UI/Loader/Loader';
+import {Redirect} from 'react-router';
+import * as queryString from 'query-string';
+import {connect} from 'react-redux';
+import {signup} from '../../Store/Actions/AuthActions';
 
 const Signup = (props) => {
-        
+
+    const [fieldChangeHandler, formSubmitHandler] = useInputHandler();  
+    const [formErrorMessage, setFormErrorMessage] = useState('');
+    const [LoaderState, setLoaderState] = useState(false);
+
     const password = useRef();
+
+    const [nameState, setNameState] = useState({
+        fieldName: 'input',
+        fieldAttributes: {
+            type: 'text',
+            label: 'Name',
+            name: 'name',
+            placeholder: 'Enter Your Name'
+        },
+        showErrorMessage: false,
+        value: '',
+        errorMessage: ['Name must not be empty'],
+        isValid: false,
+        isTouched: false,
+        validate: {
+            required: [true, 'Name must not be empty']
+        }
+    });
 
     const [emailState, setEmailState] = useState({
         fieldName: 'input',
@@ -59,7 +86,7 @@ const Signup = (props) => {
         isValid: false,
         isTouched: false,
         validate: {
-            required: [true, 'Password must not be empty'],
+            required: [true, 'Confirm Password must not be empty'],
             validator: [ (value) => {
                 if(password.current.value !== value) {
                     return false;
@@ -73,15 +100,46 @@ const Signup = (props) => {
         }
     });
 
-    const [fieldChangeHandler, formSubmitHandler] = useInputHandler();  
+    const formSubmitAction = () => { 
+        props.signupOnSubmit(nameState.value, emailState.value, passwordState.value, confirmPasswordState.value, setFormErrorMessage, setLoaderState);
+    }
 
-    return (
-        <AuthenticationForm formSubmitHandler={(event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}, {confirmPasswordState, setConfirmPasswordState}], event)} AuthFormType='Signup' heading="Signup Form">
+    useEffect(() => {
+         return () => { 
+            setLoaderState(false);   
+         }
+    }, []);
+
+    const redirectAddress = queryString.parse(props.location.search).redirectTo || '/';
+
+    const AuthForm = (
+        <AuthenticationForm formErrorMessage={formErrorMessage} formSubmitHandler={(event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}, {confirmPasswordState, setConfirmPasswordState}, {nameState, setNameState}], formSubmitAction, event)} AuthFormType='Signup' heading="Signup Form">
+            <InputField showErrorMessage={nameState.showErrorMessage} errorMessage={nameState.errorMessage[0]} isTouched={nameState.isTouched} isValid={nameState.isValid} fieldName={nameState.fieldName} fieldAttributes ={nameState.fieldAttributes} value={nameState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(nameState, setNameState, event)}, [nameState, fieldChangeHandler])}/>
             <InputField showErrorMessage={emailState.showErrorMessage} errorMessage={emailState.errorMessage[0]} isTouched={emailState.isTouched} isValid={emailState.isValid} fieldName={emailState.fieldName} fieldAttributes ={emailState.fieldAttributes} value={emailState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(emailState, setEmailState, event)}, [emailState, fieldChangeHandler])}/>
             <InputField ref={password} showErrorMessage={passwordState.showErrorMessage} errorMessage={passwordState.errorMessage[0]} isTouched={passwordState.isTouched} isValid={passwordState.isValid} fieldName={passwordState.fieldName} fieldAttributes ={passwordState.fieldAttributes} value={passwordState.value} changeHandler = {useCallback((e) => { const event = e; fieldChangeHandler(passwordState, setPasswordState, event)},[passwordState, fieldChangeHandler])}/>
             <InputField showErrorMessage={confirmPasswordState.showErrorMessage} errorMessage={confirmPasswordState.errorMessage[0]} isTouched={confirmPasswordState.isTouched} isValid={confirmPasswordState.isValid} fieldName={confirmPasswordState.fieldName} fieldAttributes ={confirmPasswordState.fieldAttributes} value={confirmPasswordState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(confirmPasswordState, setConfirmPasswordState, event)}, [confirmPasswordState, fieldChangeHandler])}/>  
         </AuthenticationForm>
     );
+
+    const FormElement = props.isLoggedin ? <Redirect to={redirectAddress} /> : AuthForm;
+
+    return (
+    <>
+        { LoaderState === true ? <Loader /> : FormElement }
+    </> 
+    );
 } 
 
-export default Signup;
+const mapDispatchToProps = (dispatch => {
+    return {
+        signupOnSubmit: (name, email, password, confirmPassword, setFormErrorMessage, setLoaderState) => dispatch(signup(name, email, password, confirmPassword, setFormErrorMessage, setLoaderState))
+    }
+});
+
+ const mapStateToProps = (state => {
+     return { 
+        isLoggedin: state.authentication.isLoggedin
+     }    
+ });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
