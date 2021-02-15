@@ -9,10 +9,15 @@
 }
 
 .filterField {
-    text-indent: 8px;
+    text-indent: 8px;    
+}
+
+.filterField input {
+    cursor: pointer;
 }
 
 .filterField label {
+    cursor: pointer;
     font-size: 0.9rem;
     padding-left: 4px;
 }

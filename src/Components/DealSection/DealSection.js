@@ -18,6 +18,11 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 10
                     },
+                    quantity: {
+                        value: 12,
+                        unit: 'pc'
+                    },
+                    stockQuantity: 10,
                     price: {
                         symbol: '$',
                         value: 10
@@ -31,6 +36,11 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 10
                     },
+                    quantity: {
+                        value: 12,
+                        unit: 'pc'
+                    },
+                    stockQuantity: 10,
                     price: {
                         symbol: '$',
                         value: 5
@@ -45,6 +55,11 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 10
                     },
+                    quantity: {
+                        value: 12,
+                        unit: 'pc'
+                    },
+                    stockQuantity: 10,
                     price: {
                         symbol: '$',
                         value: 5
@@ -59,6 +74,11 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 10
                     },
+                    quantity: {
+                        value: 12,
+                        unit: 'pc'
+                    },
+                    stockQuantity: 10,
                     price: {
                         symbol: '$',
                         value: 5
@@ -73,6 +93,11 @@ const DealSection = (props) => {
                         symbol: '$',
                         value: 10
                     },
+                    quantity: {
+                        value: 12,
+                        unit: 'pc'
+                    },
+                    stockQuantity: 10,
                     price: {
                         symbol: '$',
                         value: 5
