@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {withRouter} from 'react-router';
 import useInputHandler from '../../Custom Hooks/useInputHandler';
 import AuthenticationForm from '../../Components/UI/AuthenticationForm/AuthenticationForm';
@@ -10,7 +10,6 @@ import {Redirect} from 'react-router';
 import Loader from '../../Components/UI/Loader/Loader';
 
 const Login = (props) => {
-    
     const [fieldChangeHandler, formSubmitHandler] = useInputHandler();  
     const [formErrorMessage, setFormErrorMessage] = useState('');
     const [LoaderState, setLoaderState] = useState(false);
@@ -54,7 +53,7 @@ const Login = (props) => {
 
     const formSubmitAction = () => { 
         props.loginOnSubmit(emailState.value, passwordState.value, setFormErrorMessage, setLoaderState);
-    }
+    };
 
      useEffect(() => {
          return () => { 
@@ -65,7 +64,7 @@ const Login = (props) => {
     const redirectAddress = queryString.parse(props.location.search).redirectTo || '/';
 
     const AuthForm = (
-    <AuthenticationForm formErrorMessage={formErrorMessage} formSubmitHandler={(event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}], formSubmitAction, event)} AuthFormType='Login' heading="Login Form">        
+    <AuthenticationForm formErrorMessage={formErrorMessage} formSubmitHandler={useCallback((event) => formSubmitHandler([{emailState, setEmailState}, {passwordState, setPasswordState}], formSubmitAction, event), [emailState, passwordState,formSubmitAction])} AuthFormType={useMemo(() => 'Login', [])} heading={useMemo(() => 'Login Form', [])}>        
         <InputField showErrorMessage={emailState.showErrorMessage} errorMessage={emailState.errorMessage[0]} isTouched={emailState.isTouched} isValid={emailState.isValid} fieldName={emailState.fieldName} fieldAttributes ={emailState.fieldAttributes} value={emailState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(emailState, setEmailState, event)}, [emailState, fieldChangeHandler])}/>
         <InputField showErrorMessage={passwordState.showErrorMessage} errorMessage={passwordState.errorMessage[0]} isTouched={passwordState.isTouched} isValid={passwordState.isValid} fieldName={passwordState.fieldName} fieldAttributes ={passwordState.fieldAttributes} value={passwordState.value} changeHandler = {useCallback((e) => {const event = e; fieldChangeHandler(passwordState, setPasswordState, event)}, [])}/>                 
     </AuthenticationForm>);

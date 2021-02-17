@@ -112,3 +112,13 @@ a.Dropdown:hover + ul.dropdownItems {
     background-color: #c1272d;
     color: #fff;
 }
+
+datalist {
+    position: absolute;
+    color: red;
+}
+
+.searchForm.input[datalist] {
+    position: absolute;
+    color: red;
+}

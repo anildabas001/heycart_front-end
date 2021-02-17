@@ -28,4 +28,4 @@ const AuthenticationForm = (props) => {
     );
 }  
 
-export default withRouter(AuthenticationForm);
+export default React.memo(withRouter(AuthenticationForm));

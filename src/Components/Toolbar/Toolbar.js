@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import heyCartLogo from '../../Assets/HeyCartLogo.png';
 import Icon from '../UI/Icon/Icon';
 import classes from './Toolbar.module.css';
@@ -18,4 +18,4 @@ const Toolbar = (props) => {
     )
 }
 
-export default Toolbar;
+export default React.memo(Toolbar);

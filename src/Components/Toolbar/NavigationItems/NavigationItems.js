@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 import {withRouter} from 'react-router';
+import NavigationContext from '../../../Context/NavigationContext';
 
-const Navigation = (props) => {
-    console.log(props.history);
+const Navigation = (props) => {  
+    const searchdata = useContext(NavigationContext);
+
     return (
     <ul className={classes.NavigationBar}>
         
@@ -38,11 +40,11 @@ const Navigation = (props) => {
            } 
         } />
         
-        <NavigationItem type="search" navigationData={
+        <NavigationItem searchHandler={searchdata.searchChangeHandler} searchOptions={searchdata.searchOptions} type="search" navigationData={
             {
                 placeholder: 'Search for product'
             } 
-        }/>
+        }/> 
         
         <NavigationItem type="link" navigationData={
             {
@@ -53,14 +55,14 @@ const Navigation = (props) => {
             }
         } /> 
         
-        <NavigationItem type="link" navigationData={
+         <NavigationItem type="link" navigationData={
             {
                 name: 'Login',
-                linkTo: '/login'+ `?redirectTo=${props.location.pathname}${props.location.search}`                
+                linkTo: '/login'+ `?redirectTo=${window.location.pathname}${window.location.search}`                
             }
-        } />       
+        } />        
     </ul>      
     );
 }
 
-export default withRouter(Navigation);
+export default React.memo(Navigation);
