@@ -1,16 +1,17 @@
 import React, {useContext} from 'react';
 import classes from './NavigationItems.module.css';
-import NavigationItem from './NavigationItem/NavigationItem';
-import {withRouter} from 'react-router';
-import NavigationContext from '../../../Context/NavigationContext';
+import NavDropdown from './NavigationItem/NavDropDown/NavDropdown';
+import NavSearchbar from './NavigationItem/NavSearchbar/NavSearchbar';
+import NavLink from './NavigationItem/NavLink/NavLink';
+import NavigationContext from '../../Context/NavigationContext';
 
 const Navigation = (props) => {  
     const searchdata = useContext(NavigationContext);
 
     return (
     <ul className={classes.NavigationBar}>
-        
-        <NavigationItem type="dropdown" navigationData={
+        <li>
+        <NavDropdown navigationData={
            {
                 name: 'Shop By Category',
                 icon: 'IoChevronDownSharp',
@@ -39,28 +40,37 @@ const Navigation = (props) => {
             ]
            } 
         } />
+
+        </li>    
+
+        <li style={{width: '50%', height: '80%'}}>
+            <NavSearchbar searchHandler={searchdata.searchChangeHandler} searchOptions={searchdata.searchOptions} navigationData={
+                {
+                    placeholder: 'Search for product'
+                } 
+            }/>
+        </li>
         
-        <NavigationItem searchHandler={searchdata.searchChangeHandler} searchOptions={searchdata.searchOptions} type="search" navigationData={
-            {
-                placeholder: 'Search for product'
-            } 
-        }/> 
-        
-        <NavigationItem type="link" navigationData={
-            {
-                name: 'Cart',
-                linkTo: '/cart',
-                icon: 'IoCartOutline',
-                iconPosition: 'left'
-            }
-        } /> 
-        
-         <NavigationItem type="link" navigationData={
-            {
-                name: 'Login',
-                linkTo: '/login'+ `?redirectTo=${window.location.pathname}${window.location.search}`                
-            }
-        } />        
+        <li>
+            <NavLink navigationData={
+                {
+                    name: 'Cart',
+                    linkTo: '/cart',
+                    icon: 'IoCartOutline',
+                    iconPosition: 'left'
+                }
+            } /> 
+        </li>     
+
+        <li>
+            <NavLink navigationData={
+                {
+                    name: 'Login',
+                    linkTo: '/login'+ `?redirectTo=${window.location.pathname}${window.location.search}`                
+                }
+            } />
+        </li>
+
     </ul>      
     );
 }

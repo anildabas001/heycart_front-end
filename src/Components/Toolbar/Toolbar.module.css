@@ -6,6 +6,8 @@
     justify-content: space-around;
     align-items: center;
     border-bottom: 1px solid #eee;
+    z-index: 110;
+    font-size: 1.1rem;
 }
 
 .IconContainer {
@@ -16,3 +18,49 @@ nav {
     width: 90%;
     padding-left: 50px;
 }
+
+.smallScreenNav {
+    display: none;
+}
+
+@media only screen and (max-width: 1066px) {
+    .Toolbar {
+        width: 98%;
+        height: 50px;
+        padding-left: 5px;
+        padding-right: 5px;
+        justify-content: space-between;
+        vertical-align: middle;
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    
+    nav {
+        display: none;
+        font-size: 1.1rem;
+    }
+
+    .smallScreenNav {
+        display: inline;
+    }
+
+    .IconContainer {
+        width: 118px;
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .Toolbar {
+        font-size: 1rem;
+    }
+
+    .IconContainer {
+        width: 100px;
+        height: auto;
+    }
+}
+
+
