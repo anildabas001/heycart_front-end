@@ -1,11 +1,10 @@
 .CategoryCard { 
-    max-width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;    
+    display: inline-block;
+    width: 23.8%;    
     cursor: pointer;
-    margin: 5px;
+    margin: 0.5%;
+    min-width: 200px;   
+    /* max-width: 260px;  */
 }
 
 .CategoryImage {    
@@ -17,11 +16,27 @@
 .CategoryImage img {
     display: block;
     border-radius: 10px;
-    max-width: 100%;
+    width: 100%;
     height: auto;
 }
 
-.CategoryCard p{
+.CategoryCard a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0px;
+}
+
+.CategoryCard p {
     color: #0f7c90;
     font-weight: 400;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1135px) {
+	.CategoryCard { 
+        width: 40.2%;
+        margin: 0.7%;
+        margin-bottom: 20px;
+    }
+    
 }

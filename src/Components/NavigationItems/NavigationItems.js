@@ -46,7 +46,7 @@ const Navigation = (props) => {
         <li style={{width: '50%', height: '80%'}}>
             <NavSearchbar searchHandler={searchdata.searchChangeHandler} searchOptions={searchdata.searchOptions} navigationData={
                 {
-                    placeholder: 'Search for product'
+                    placeholder: 'Search for products'
                 } 
             }/>
         </li>

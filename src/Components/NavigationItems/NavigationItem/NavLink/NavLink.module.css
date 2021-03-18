@@ -3,7 +3,9 @@
     text-decoration: none;
     color: #222;
     padding: 10px;
+    width: 100%;
 }
+
 
 .NavLink:hover {
     color: #0f7c90;
@@ -27,7 +29,6 @@
 
 @media only screen and (max-width: 900px){
     .NavLink {
-        font-size: 1rem;
         padding: 5px;
     }
 }

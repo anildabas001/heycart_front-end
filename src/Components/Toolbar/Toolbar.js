@@ -28,9 +28,7 @@ const Toolbar = (props) => {
                     }
                 } 
             />
-            </span> 
-            
-                     
+            </span>               
         </div>
     )
 }

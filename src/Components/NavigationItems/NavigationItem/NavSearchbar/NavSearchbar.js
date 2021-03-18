@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
+import {Link, withRouter} from 'react-router-dom'
 import * as ReactIcons from 'react-icons/io5';
 import classes from './NavSearchbar.module.css';
 
 const NavSearchbar = (props) => {
-    let element;
+    const [input, updateInput] = useState('');
 
-    element = <span className={classes.searchForm}>  
-    <form className={classes.AlignIcon}>
-        <input list='suggestions' type="text" onChange={props.searchHandler} placeholder={props.navigationData.placeholder}/>  
-        {/* <datalist id="suggestions">
-            {props.searchOptions.map(value => <option key={value} value={value} />)} 
-        </datalist>    */}
-        <ReactIcons.IoSearchOutline />                      
+    const inputHandler = (event) => {
+        updateInput(event.target.value);
+    }
+
+    const formSubmitHandler = (event) => {
+        event.preventDefault();
+        if (input.trim().length > 0) {
+            props.history.push(`/search?product=${input}`);
+        }        
+    }
+
+    let element = <span className={classes.searchForm}>  
+    <form onSubmit={formSubmitHandler} className={classes.AlignIcon}>
+        <input type="text" onChange={inputHandler} placeholder={props.navigationData.placeholder}/> 
+        {input.trim().length > 0 ?<Link style={{paddingTop: '5px'}} to={`/search?product=${input}`}><ReactIcons.IoSearchOutline /></Link> : <Link style={{paddingTop: '5px'}} to={`#`}><ReactIcons.IoSearchOutline /></Link>}                   
     </form>
 </span>;
 
@@ -22,4 +31,11 @@ return (
 );
 }
 
-export default NavSearchbar;
+export default withRouter(NavSearchbar);
+
+
+
+
+/* <datalist id="suggestions">
+            {props.searchOptions.map(value => <option key={value} value={value} />)} 
+        </datalist>    */

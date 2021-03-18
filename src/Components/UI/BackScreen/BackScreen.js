@@ -10,14 +10,14 @@ const BackScreen = (props) => {
         BackScreenClasses.push(classes.open);
         document.body.style.overflow = 'hidden !important';
     }
-
-    element = props.showBackScreen ? <div className={classes.BackScreen}></div> : null;
+//props.backScreenHandler
+    element = props.showBackScreen ? <div onClick={props.backScreenHandler} className={BackScreenClasses.join(' ')}></div> : null;
     
 
     return (
-        
-        <div className={BackScreenClasses.join(' ')} />
-        
+        <>
+            {element}
+        </>
     );
 }
 

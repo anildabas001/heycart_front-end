@@ -8,11 +8,19 @@ const ProductSlider = (props) => {
     var settings = {
         infinite: false,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 4,
         responsive: [
           {
-            breakpoint: 1160,
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+              infinite: false
+            }
+          },
+          {
+            breakpoint: 1120,
             settings: {
               slidesToShow: 3,
               slidesToScroll: 3,

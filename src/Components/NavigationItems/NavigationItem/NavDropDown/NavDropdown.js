@@ -8,18 +8,30 @@ const NavDropdown = (props) => {
     let element;
 
     let dropdownName = <span className={classes.Dropdown}>{props.navigationData.name}</span>; 
-    let icon;        
+    let icon;  
+    
+    const closeDropdownHandler = (event) => {
+         if(event.target.matches('a')) {
+             event.target.parentNode.parentNode.style.display = 'none';
+         }
+    }
+
+    const openDropdownHandler = (event) => {
+        if (event.target.nextSibling) {
+            event.target.nextSibling.style.display = 'block';
+        }        
+    }
 
     if(props.navigationData.icon) {
         ReactIcon = ReactIcons[`${props.navigationData.icon}`];
         icon = props.icon;
-        dropdownName = props.navigationData.iconPosition === 'right'?  <a className={[classes.Dropdown, classes.AlignIcon].join(' ')}><span className={ classes.IconRight}>{props.navigationData.name}</span><ReactIcon /></a> : <a className={[classes.Dropdown, classes.AlignIcon].join(' ')}><ReactIcon /><span className={classes.IconRight}>{props.navigationData.name}</span></a>
+        dropdownName = props.navigationData.iconPosition === 'right'?  <a href='#' onMouseOver={openDropdownHandler} className={[classes.Dropdown, classes.AlignIcon].join(' ')}><span className={ classes.IconRight}>{props.navigationData.name}</span><ReactIcon /></a> : <a onMouseOver={openDropdownHandler} href='#' className={[classes.Dropdown, classes.AlignIcon].join(' ')}><ReactIcon /><span className={classes.IconRight}>{props.navigationData.name}</span></a>
     }
 
     element = 
         <>
         {dropdownName} 
-            <ul className={classes.dropdownItems}>
+            <ul className={classes.dropdownItems} onClick={(closeDropdownHandler)}>
                 {props.navigationData.dropdownData.map(data => <li key={data.linkName}><Link to={data.linkTo}>{data.linkName}</Link></li>)}
             </ul>
     </> ;

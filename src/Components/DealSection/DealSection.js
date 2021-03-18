@@ -11,100 +11,17 @@ const DealSection = (props) => {
     return (
         <Section className={classes.DealSection}>
             <SectionHeading>HeyCart Deals</SectionHeading>
-            <ProductSlider>            
-                <ProductCard product={{
-                    name: 'Tata Salt',
-                    mrp: {
-                        symbol: '$',
-                        value: 10
-                    },
-                    quantity: {
-                        value: 12,
-                        unit: 'pc'
-                    },
-                    stockQuantity: 10,
-                    price: {
-                        symbol: '$',
-                        value: 10
-                    },
-                    discount: 0,
-                    source: egg
-                }}/>
-                <ProductCard product={{
-                    name: 'Tata Salt',
-                    mrp: {
-                        symbol: '$',
-                        value: 10
-                    },
-                    quantity: {
-                        value: 12,
-                        unit: 'pc'
-                    },
-                    stockQuantity: 10,
-                    price: {
-                        symbol: '$',
-                        value: 5
-                    },
-                    discount: 50,
-                    source: egg
-                }}
-                />
-                <ProductCard product={{
-                    name: 'Tata Salt',
-                    mrp: {
-                        symbol: '$',
-                        value: 10
-                    },
-                    quantity: {
-                        value: 12,
-                        unit: 'pc'
-                    },
-                    stockQuantity: 10,
-                    price: {
-                        symbol: '$',
-                        value: 5
-                    },
-                    discount: 50,
-                    source: egg
-                }}
-                />
-                <ProductCard product={{
-                    name: 'Tata Salt',
-                    mrp: {
-                        symbol: '$',
-                        value: 10
-                    },
-                    quantity: {
-                        value: 12,
-                        unit: 'pc'
-                    },
-                    stockQuantity: 10,
-                    price: {
-                        symbol: '$',
-                        value: 5
-                    },
-                    discount: 50,
-                    source: egg
-                }}
-                />
-                <ProductCard product={{
-                    name: 'Tata Salt',
-                    mrp: {
-                        symbol: '$',
-                        value: 10
-                    },
-                    quantity: {
-                        value: 12,
-                        unit: 'pc'
-                    },
-                    stockQuantity: 10,
-                    price: {
-                        symbol: '$',
-                        value: 5
-                    },
-                    discount: 50
-                }}
-                />
+            <ProductSlider>
+                {props.data.map(product => <ProductCard key ={product.id} product={{
+                    name: product.name,
+                    mrp: product.mrp,
+                    price: product.price,
+                    discount: product.discountPercentage,
+                    source: product.images[0],
+                    id: product.id,
+                    quantity: product.quantity,
+                    stockQuantity: product.stockQuantity
+                }}/>)}    
             </ProductSlider>
         </Section>
     );

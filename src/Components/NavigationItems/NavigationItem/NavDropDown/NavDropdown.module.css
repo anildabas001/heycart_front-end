@@ -62,11 +62,11 @@ li .Dropdown:hover {
 a.Dropdown:hover + ul.dropdownItems { 
     transform: translateY(0px);
     opacity: 1;
-    visibility: visible;
+    visibility: visible ;
 }
 
 .dropdownItems:hover {
     transform: translateY(0px);
     opacity: 1;
-    visibility: visible; 
+    visibility: visible ; 
 }
