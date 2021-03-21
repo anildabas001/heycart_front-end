@@ -7,6 +7,18 @@
     color: black;
 }
 
-/* .slick-track div{ 
+.slick-track {
+    position: relative;
+    top: 0;
+    left: 2px;
+    right: 2px;
+    display: block;
+    margin-left: auto;
+    text-align: center;
+    margin-right: auto;
+}
+
+.slick-track div{ 
+    padding-left: 10px;
     margin: 5px auto;
-}   */
+}   

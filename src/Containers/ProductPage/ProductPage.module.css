@@ -1,0 +1,7 @@
+.ProductPage {
+    box-shadow: 0 2px 8px rgb(20 23 28 / 25%);
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    border: 1px solid #eee;
+}

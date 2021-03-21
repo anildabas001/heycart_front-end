@@ -5,7 +5,7 @@ import { IoAddOutline, IoRemoveOutline} from "react-icons/io5";
 const CollapsibleControl = (props) => {
     let icon = <IoAddOutline />;    
     let collapseClass = classes.close;
-    const [collapseState, setCollapseState] = useState(false);
+    const [collapseState, setCollapseState] = useState(true );
 
     if(collapseState) {
         icon = <IoRemoveOutline />;
@@ -18,7 +18,7 @@ const CollapsibleControl = (props) => {
 
     return (
         <>
-            <div onClick={collapseHandler} className={classes.CollapseTitle}>{props.title} <span className={classes.CollapsibleIcon}>{icon}</span></div>
+            <div style={{marginBottom: '20px'}} onClick={collapseHandler} className={classes.CollapseTitle}>{props.title} <span className={classes.CollapsibleIcon}>{icon}</span></div>
             <div className={collapseClass}>
                 {props.children}
             </div>

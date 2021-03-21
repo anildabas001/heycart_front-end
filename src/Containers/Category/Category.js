@@ -1,4 +1,4 @@
-import React, {useReducer, useeffect, useEffect} from 'react';
+import React, {useReducer, useState, useEffect} from 'react';
 import CategoryLayout from '../../Components/CategoryLayout/CategoryLayout';
 import FilterSection from '../../Components/CategoryLayout/FilterSection/FilterSection'; 
 import ProductsSection from '../../Components/CategoryLayout/ProductsSection/ProductsSection';
@@ -6,7 +6,7 @@ import Loader from '../../Components/UI/Loader/Loader';
 
 const categoryReducer = (state, action) => {
   switch (action.type) {
-    case 'UPDATE_PRODUCT_LISTS': 
+    case 'UPDATE_PRODUCTS_AND_FILTERS': 
       return ({
         ...state,
         productList: [...action.productList],
@@ -25,10 +25,16 @@ const categoryReducer = (state, action) => {
           },
           {
             heading: 'Availability',
-            options: ['exclude out of stock items']
+            options: [{name: 'exclude out of stock items', value: 'xxx'}]
           }
         ]
       });
+
+      case 'UPDATE_PRODUCTS':
+        return({
+          ...state,
+          productList: [...action.productList],
+        });
 
       case 'STOP_LOADER':
         return(
@@ -55,8 +61,10 @@ const categoryReducer = (state, action) => {
 }
 
 const Category = (props) => {
-    const pageHeading = props.match.params.category;    
-    const initialCategoryState = {
+  const pageHeading = props.match.params.category;
+  const [productsURL, updateProductsURL] = useState(`http://localhost:3001/heyCart/api/v1/products/parent-category/${pageHeading}?selectFields=-description,-primaryImage,-organic,-variants`);
+        
+  const initialCategoryState = {
       productList:[],
       filter: [
         {
@@ -73,7 +81,7 @@ const Category = (props) => {
         },
         {
           heading: 'Availability',
-          options: ['exclude out of stock items']
+          options: []
         }        
       ],
       loading: true
@@ -99,61 +107,106 @@ const Category = (props) => {
       .then(response=> {
         if (response.data.length > 0) {
           productList = [...response.data];
+
+          var checkDuplicate ={};
+
           response.data.forEach((item) => {  
 
-              if (brands.indexOf(item.brand) === -1) {
-                brands.push(item.brand);
+              if (! checkDuplicate[item.brand]) {
+                brands.push({name: item.brand, value: item.brand});
+                checkDuplicate[item.brand] = true;
               }
               
-              item.categories.forEach(category => {
-                if(subCategories.indexOf(category) === -1) {
-                  subCategories.push(category);
-                }
-              });
+               item.categories.forEach(category => {                 
+                 if(! checkDuplicate[category]) {
+                   subCategories.push({name: category, value: category});                   
+                   checkDuplicate[category] = true;
+                 }
+               });
 
-              if (item.discountPercentage < 10) {
+              // subCategories = item.categories..filter((category) => category);
+
+              if (item.discountPercentage < 10 && item.discountPercentage > 0) {
                  if(discount.indexOf('less than 10%') === -1) {
-                   discount[5] = 'less than 10%';
+                   discount[4] = {name: 'less than 10%', value: 'lt=10,gt=0'};
                  }                  
               }
               else if(item.discountPercentage >= 10 && item.discountPercentage < 20) {
                 if(discount.indexOf('less than 20%') === -1) {
-                  discount[4] = 'less than 20%';
+                  discount[3] = {name: 'less than 20%', value:'lt=20,gt=0'};
                 } 
               }
               else if(item.discountPercentage >= 20 && item.discountPercentage < 30) {
                 if(discount.indexOf('less than 30%') === -1) {
-                  discount[3] = 'less than 30%';
+                  discount[2] = {name: 'less than 30%', value:'lt=30,gt=0'};
                 } 
               }
               else if(item.discountPercentage >= 30 && item.discountPercentage < 40) {
                 if(discount.indexOf('less than 40%') === -1) {
-                  discount[2] = 'less than 40%';
+                  discount[1] = {name:'less than 40%', value: 'lt=40,gt=0'};
                 } 
               }
-              else if(item.discountPercentage >= 40 && item.discountPercentage < 50) {
-                if(discount.indexOf('less than 50%') === -1) {
-                  discount[1] = 'less than 50%';
+              else if(item.discountPercentage >= 40 ) {
+                if(discount.indexOf('more than 40%') === -1) {
+                  discount[0] = {name: 'more than 40%', value: 'gte=40'};
                 } 
-              }
-              else {
-                if(discount.indexOf('more than 50%') === -1) {
-                  discount[0] = 'more than 50%';
-                }
-              }
+              }              
           });
           
-          dispatch({type: 'UPDATE_PRODUCT_LISTS', productList, brands, subCategories, discount});         
+          dispatch({type: 'UPDATE_PRODUCTS_AND_FILTERS', productList, brands, subCategories, discount});         
         }
         dispatch({type: 'STOP_LOADER'});
       })
       .catch(err => console.log(err))
-    },[pageHeading]);
+    },[productsURL]);
+
+    const filterFormHandler = (event) => {
+      event.preventDefault();
+      var brands = [];
+      var subCategories = [];
+      var discounts = [];
+      var queryString = `http://localhost:3001/heyCart/api/v1/products/parent-category/${pageHeading}?selectFields=-description,-primaryImage,-organic,-variants`;
+      console.log(queryString);
+
+      Array.from(event.target.elements).forEach(input => {
+        if (input.name === 'brands' && input.checked) {
+          brands.push(input.value);
+        }
+        else if(input.name === 'sub-category' && input.checked) {
+          subCategories.push(input.value);
+        }
+        else if(input.name === 'discount' && input.checked) {
+          discounts.push(input.value);
+        }
+        else if(input.name === 'availability' && input.checked) {
+          discounts.push(input.value);
+        }
+      });
+
+      if (brands.length > 0) {
+        console.log(brands);
+        queryString = `${queryString}&brand=${brands.join(',')}`
+      }
+
+      if (subCategories.length > 0) {
+        queryString = `${queryString}&subCategories=${subCategories.join(',')}`
+      }
+
+      if (discounts.length > 0) {
+        queryString = `${queryString}&discount=${discounts.join('|')}`
+      }
+
+      console.log(queryString);
+
+      fetch(queryString).then(response => response.json()).then(data => dispatch({type: 'UPDATE_PRODUCTS', productList: data.data}));
+
+    }
+
 
     let categoryElement = (
       <CategoryLayout>
-          <FilterSection filter={state.filter}/>
-          <ProductsSection productList={state.productList} pageHeading={pageHeading}/> 
+          <FilterSection filterFormHandler={filterFormHandler} filter={state.filter}/>
+          <ProductsSection productList={state.productList} pageHeading={pageHeading.replace(/\b\w/g, l => l.toUpperCase())}/> 
       </CategoryLayout>  
     );
 

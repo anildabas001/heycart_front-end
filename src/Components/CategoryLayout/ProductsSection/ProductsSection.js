@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import classes from './ProductsSection.module.css';
 import ProductCard from '../../UI/ProductCard/ProductCard';
 
@@ -26,4 +26,4 @@ const ProductsSection = (props) => {
     );
 }
 
-export default ProductsSection;
+export default memo(ProductsSection);
