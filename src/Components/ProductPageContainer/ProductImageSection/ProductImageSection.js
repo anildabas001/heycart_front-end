@@ -1,14 +1,12 @@
 import React from 'react';
-import Button from '../UI/Button/Button';
-import classes from '../ProductImageSection.module.css';
+import classes from './ProductImageSection.module.css';
 
 const ProductImageSection = (props) => {
     return (
-        <div>
-            <div>
-                <img src='' />
+        <div className={classes.ProductImageSection}>
+            <div className={classes.ImageContainer}>
+                <img src={`http://localhost:3001/images/${props.imageSource}`} alt={props.productName + ' image'} />
             </div>
-            <Button>Add to Cart</Button>
         </div>
     );
 } 

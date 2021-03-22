@@ -1,0 +1,11 @@
+.ProductDescription {
+    width: 80%;
+    margin: 80px auto;
+    border-bottom: 1px solid #eee;
+}
+
+.Clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

@@ -10,6 +10,7 @@ import SideBar from './Components/SideBar/SideBar';
 import BackScreen from './Components/UI/BackScreen/BackScreen';
 import SearchPage from './Containers/SearchPage/Searchpage';
 import ResponsiveSearchbar from './Components/ResponsiveSerachbar/ResponsiveSerachbar';
+import ProductPage from './Containers/ProductPage/ProductPage';
 
 function App() {
 
@@ -66,7 +67,8 @@ function App() {
       <BackScreen backScreenHandler = {sideBarHandler} showBackScreen={sidebarState.showSideBar}/>
         <Switch>  
           <Route path='/' exact  component={Home} />
-          <Route path='/search' exact  component={SearchPage} />
+          <Route path='/search' exact  component={SearchPage} />          
+          <Route path='/product/:productName?' exact component={ProductPage} />
           <Route path='/:category' exact  component={Category} />
         </Switch>
       <Footer />

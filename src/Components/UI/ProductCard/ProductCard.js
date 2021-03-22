@@ -1,7 +1,8 @@
 import React from 'react';
-import * as ReactIcons from 'react-icons/ai'
+import {Link} from 'react-router-dom'
 import Button from '../Button/Button';
 import classes from './ProductCard.module.css';
+import slugify from 'slugify';
 
 const ProductCard = (props) => {
 
@@ -27,30 +28,35 @@ const ProductCard = (props) => {
     if(props.product.discount > 0) {
         priceValue = <>Price: <span className={[classes.MrpPrice, classes.Invalid].join(' ')}> ${filterPrice(props.product.mrp.value)}</span><span className={classes.DiscountPrice}>${filterPrice(props.product.price.value)}</span> </>;  
     }
-
     return(
-        <div className={classes.ProductCard}>
-            <div className={classes.ProductImage}>
-                <img src={`http://localhost:3001/images/${props.product.source}`} alt={props.product.name + 'image'}></img>
-                <p className={classes.ProductName}>
-                    {filterName(props.product.name)}
-                </p>
-            </div>
-            <div className={classes.ProductInfo}>                
-                <p className={classes.ProductPrice}>
-                    {priceValue}
-                </p>
-                <p className={classes.ProductQuantity}>
-                    Quantity:{ props.product.quantity.value}{props.product.quantity.unit}
-                </p>
-                {props.product.stockQuantity <= 0 ? <p className={classes.stockOut}>Out of Stock</p> : <Button>Add to Cart</Button>}                
-                {/* <div className={classes.ProductQuantityControl}>
-                    <ReactIcons.AiOutlineMinus />
-                    <input type="text"/>
-                    <ReactIcons.AiOutlinePlus />
-                </div>            */}
-            </div>
+        <Link
+            to={{
+                pathname: `/product/${slugify(props.product.name)}`,
+                state: { id: props.product.id}
+            }}>
+            <div className={classes.ProductCard}>
+                <div className={classes.ProductImage}>
+                    <img src={`http://localhost:3001/images/${props.product.source}`} alt={props.product.name + 'image'}></img>
+                    <p className={classes.ProductName}>
+                        {filterName(props.product.name)}
+                    </p>
+                </div>
+                <div className={classes.ProductInfo}>                
+                    <p className={classes.ProductPrice}>
+                        {priceValue}
+                    </p>
+                    <p className={classes.ProductQuantity}>
+                        Quantity:{ props.product.quantity.value}{props.product.quantity.unit}
+                    </p>
+                    {props.product.stockQuantity <= 0 ? <p className={classes.stockOut}>Out of Stock</p> : <Button>Add to Cart</Button>}                
+                    {/* <div className={classes.ProductQuantityControl}>
+                        <ReactIcons.AiOutlineMinus />
+                        <input type="text"/>
+                        <ReactIcons.AiOutlinePlus />
+                    </div>            */}
+                </div>
         </div>
+        </Link>
     );
 }
 
