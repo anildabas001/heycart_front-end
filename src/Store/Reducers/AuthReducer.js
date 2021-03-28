@@ -8,7 +8,13 @@ let initialState = {
 }
 
 if(localStorage.getItem('authenticationData')) {
-    initialState = JSON.parse(localStorage.getItem('authenticationData'));
+    let localAuthState = JSON.parse(localStorage.getItem('authenticationData'));
+    if (new Date(localAuthState.expiresAt) > new Date()) {        
+        initialState = localAuthState;
+    }
+    else {
+        localStorage.removeItem("authenticationData");
+    }       
 }
 
 const authReducer = (state=initialState, action) => {
@@ -22,6 +28,7 @@ const authReducer = (state=initialState, action) => {
                 isLoggedin: action.isLoggedin,
                 expiryTimer: action.expiryTimer             
             }
+            
             localStorage.setItem("authenticationData", JSON.stringify(updatedState));
             return updatedState;
         case 'LOGOUT': 

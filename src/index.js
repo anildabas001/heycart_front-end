@@ -10,10 +10,12 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import authReducer from './Store/Reducers/AuthReducer';
+import cartReducer from './Store/Reducers/CartReducer';
 
 const reducer = combineReducers(
   {
-    authentication: authReducer
+    authentication: authReducer,
+    cartData: cartReducer
   }
 );
 

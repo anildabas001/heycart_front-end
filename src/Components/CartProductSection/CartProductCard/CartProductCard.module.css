@@ -1,0 +1,39 @@
+.CartProductCard {
+    width: 100%;
+    border: 2px solid #eee;  
+    padding-left: 0px;
+    padding-right: 8px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.ProductName {
+    margin-bottom: 5px;
+}
+
+.CardInfo {
+    width: 155px;
+}
+
+.Price {
+    color: #c1272d;
+    font-weight: 400;
+}
+
+.CardImage {
+    vertical-align: middle;
+}
+
+.CardImage img{
+    display: inline-block;
+    width: 110px;
+    height: 84px;
+}
+
+.Quantity {
+    width: 140px;
+}

@@ -1,10 +1,48 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom'
 import Button from '../Button/Button';
 import classes from './ProductCard.module.css';
 import slugify from 'slugify';
+import QuantityControl from '../QuantityControl/QuantityControl';
+import {connect} from 'react-redux';
+import {updateCart, updateCartDb} from '../../../Store/Actions/CartAction';
 
 const ProductCard = (props) => {
+    
+    let initialQuantity = -1;    
+    const [cartQuantity, updateCartQuantity] = useState(initialQuantity); 
+
+    const onClickDecrease = (event) => {
+        event.preventDefault();        
+        event.stopPropagation();
+        setTimeout(() => {
+            updateCartQuantity(state => {
+                if (state > 0) {
+                    state--;                
+                }
+                return state;            
+            });
+        },300)        
+    }
+
+    const onClickIncrease = (event) => {
+        event.preventDefault();        
+        event.stopPropagation();
+        setTimeout(() => {
+            updateCartQuantity(state => {
+                if (state < props.product.stockQuantity) {
+                    state = state + 1;
+                }
+                return state;  
+            });
+        },300)         
+    }
+
+    const addToCartHandler = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        updateCartQuantity(1);
+    }
 
     const filterPrice = (price) => {
         return price.toFixed(2);
@@ -21,6 +59,42 @@ const ProductCard = (props) => {
         }
     }
 
+    useEffect(() => {
+        if (cartQuantity != -1 && props.isLoggedin) {
+            props.updateCartDb(props.product.id, cartQuantity);
+        }
+        else if (cartQuantity != -1) {
+            props.updateCart({
+                id: props.product.id, 
+                name: props.product.name,
+                price: props.product.price,
+                quantity: props.product.quantity,
+                images: props.product.images
+            }, cartQuantity);
+        }
+        
+    }, [cartQuantity]);
+
+    // useEffect(() => {
+    //     if (cartQuantity != -1) {
+    //         props.updateCart({
+    //             id: props.product.id, 
+    //             name: props.product.name,
+    //             price: props.product.price,
+    //             quantity: props.product.quantity
+    //         }, cartQuantity);
+    //     }
+        
+    // }, [cartQuantity]);
+
+    useEffect(() =>{
+        const currentProduct = props.cartProducts ? props.cartProducts.filter(cartProduct => cartProduct.product.id === props.product.id): null;
+        
+        if (currentProduct && currentProduct.length > 0) {
+            updateCartQuantity(currentProduct[0].quantity) ;
+        }
+
+    }, [props.cartProducts]);
 
 
     let priceValue =  <span className={classes.Mrp}>Price: ${filterPrice(props.product.mrp.value)}</span>
@@ -36,7 +110,7 @@ const ProductCard = (props) => {
             }}>
             <div className={classes.ProductCard}>
                 <div className={classes.ProductImage}>
-                    <img src={`http://localhost:3001/images/${props.product.source}`} alt={props.product.name + 'image'}></img>
+                    <img src={`http://localhost:3001/images/${props.product.images[0]}`} alt={props.product.name + 'image'}></img>
                     <p className={classes.ProductName}>
                         {filterName(props.product.name)}
                     </p>
@@ -48,16 +122,31 @@ const ProductCard = (props) => {
                     <p className={classes.ProductQuantity}>
                         Quantity:{ props.product.quantity.value}{props.product.quantity.unit}
                     </p>
-                    {props.product.stockQuantity <= 0 ? <p className={classes.stockOut}>Out of Stock</p> : <Button>Add to Cart</Button>}                
-                    {/* <div className={classes.ProductQuantityControl}>
-                        <ReactIcons.AiOutlineMinus />
-                        <input type="text"/>
-                        <ReactIcons.AiOutlinePlus />
-                    </div>            */}
+                
                 </div>
+                <div style={{minHeight: '30px'}}>
+                    {
+                        cartQuantity > 0 ? <QuantityControl value={cartQuantity} onClickIncrease={onClickIncrease} onClickDecrease={onClickDecrease}/> : 
+                        props.product.stockQuantity <= 0 ? <p className={classes.stockOut}>Out of Stock</p> : <Button onClickHandler={addToCartHandler}>Add to Cart</Button>
+                    }
+                </div>                
         </div>
         </Link>
     );
 }
 
-export default ProductCard;
+const mapDispatchToProps = (dispatch => {
+    return {
+        updateCart: (product, quantity) => dispatch(updateCart(product, quantity)),
+        updateCartDb: (productId, quantity) => dispatch(updateCartDb(productId, quantity))
+    }
+});
+
+const mapStateToProps = (state => {
+    return { 
+        cartProducts: state.cartData.products,
+        isLoggedin: state.authentication.isLoggedin
+    }    
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

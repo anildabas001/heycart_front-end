@@ -17,9 +17,9 @@ const ProductDetailSection = (props) => {
         <div className={`${classes.ProductDetailSection}`}>
             <h1>{props.product.name}</h1>
             {priceElement}
-            <p style={{marginTop: '5px'}}>Quantity: {`${props.product.quantity.value} ${props.product.quantity.unit}`}</p> 
+            <p style={{marginTop: '5px', marginBottom: '25px'}}>Quantity: {`${props.product.quantity.value} ${props.product.quantity.unit}`}</p> 
 
-            <button className={classes.PropductButton}>Add to Cart</button>
+            <Button type='secondary'>Add to Cart</Button>
 
             <div className={classes.GeneralInfoSection}>
                 <p className={classes.GeneralInfoHeading}>General Information</p>

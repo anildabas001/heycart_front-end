@@ -158,7 +158,7 @@ const Category = (props) => {
         dispatch({type: 'STOP_LOADER'});
       })
       .catch(err => console.log(err))
-    },[productsURL]);
+    },[pageHeading]);
 
     const filterFormHandler = (event) => {
       event.preventDefault();
@@ -222,7 +222,3 @@ const Category = (props) => {
 };
 
 export default Category;
-
-// brands:[],
-//         subCategory:[],
-//         discount:[],

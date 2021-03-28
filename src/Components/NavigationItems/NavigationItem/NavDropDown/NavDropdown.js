@@ -6,9 +6,9 @@ import {Link} from 'react-router-dom';
 const NavDropdown = (props) => {
     let ReactIcon;
     let element;
-
     let dropdownName = <span className={classes.Dropdown}>{props.navigationData.name}</span>; 
     let icon;  
+    const navClasses = [classes.dropdownItems];
     
     const closeDropdownHandler = (event) => {
          if(event.target.matches('a')) {
@@ -28,10 +28,14 @@ const NavDropdown = (props) => {
         dropdownName = props.navigationData.iconPosition === 'right'?  <a href='#' onMouseOver={openDropdownHandler} className={[classes.Dropdown, classes.AlignIcon].join(' ')}><span className={ classes.IconRight}>{props.navigationData.name}</span><ReactIcon /></a> : <a onMouseOver={openDropdownHandler} href='#' className={[classes.Dropdown, classes.AlignIcon].join(' ')}><ReactIcon /><span className={classes.IconRight}>{props.navigationData.name}</span></a>
     }
 
+    if(props.navigationData.position === 'right') {
+        navClasses.push(classes.Right);
+    }
+
     element = 
         <>
         {dropdownName} 
-            <ul className={classes.dropdownItems} onClick={(closeDropdownHandler)}>
+            <ul className={navClasses.join(' ')} onClick={(closeDropdownHandler)}>
                 {props.navigationData.dropdownData.map(data => <li key={data.linkName}><Link to={data.linkTo}>{data.linkName}</Link></li>)}
             </ul>
     </> ;

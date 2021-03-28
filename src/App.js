@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Home from './Containers/Home/Home';
 import Toolbar from '../src/Components/Toolbar/Toolbar';
@@ -11,8 +11,11 @@ import BackScreen from './Components/UI/BackScreen/BackScreen';
 import SearchPage from './Containers/SearchPage/Searchpage';
 import ResponsiveSearchbar from './Components/ResponsiveSerachbar/ResponsiveSerachbar';
 import ProductPage from './Containers/ProductPage/ProductPage';
+import Cart from './Containers/Cart/cart';
+import {connect} from 'react-redux';
+import {syncCart, loadCartDb} from './Store/Actions/CartAction';
 
-function App() {
+function App(props) {
 
   const [sidebarState, sidebarSetState] = useState({
     showSideBar: false
@@ -25,9 +28,16 @@ function App() {
   }
 
 
-   const [state, updateState] = useState({
-     searchOptions: []
-   });
+  const [state, updateState] = useState({
+    searchOptions: []
+  });
+
+   useEffect(() => {
+    if (props.isLoggedin) {
+      props.syncCartData();
+      //props.loadCartDb();
+    }
+  }, [props.isLoggedin]);
 
    
   //  const searchChangeHandler = (event) => {
@@ -69,6 +79,7 @@ function App() {
           <Route path='/' exact  component={Home} />
           <Route path='/search' exact  component={SearchPage} />          
           <Route path='/product/:productName?' exact component={ProductPage} />
+          <Route path='/cart' exact  component={Cart} />
           <Route path='/:category' exact  component={Category} />
         </Switch>
       <Footer />
@@ -76,4 +87,18 @@ function App() {
   );
 }
 
-export default React.memo(App);
+const mapDispatchToProps = (dispatch => {
+  return {
+    syncCartData: () => dispatch(syncCart()),
+    //loadCartDb: () => dispatch(loadCartDb())
+   }
+});
+
+const mapStateToProps = (state => {
+  return { 
+      cartData: state.cartData,
+      isLoggedin: state.authentication.isLoggedin
+    }    
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

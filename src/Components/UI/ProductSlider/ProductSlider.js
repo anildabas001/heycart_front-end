@@ -20,7 +20,7 @@ const ProductSlider = (props) => {
             }
           },
           {
-            breakpoint: 1120,
+            breakpoint: 1210,
             settings: {
               slidesToShow: 3,
               slidesToScroll: 3,
@@ -36,7 +36,7 @@ const ProductSlider = (props) => {
             }
           },
           {
-            breakpoint: 530,
+            breakpoint: 640,
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,

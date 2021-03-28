@@ -20,7 +20,7 @@ const NavSearchbar = (props) => {
     let element = <span className={classes.searchForm}>  
     <form onSubmit={formSubmitHandler} className={classes.AlignIcon}>
         <input type="text" onChange={inputHandler} placeholder={props.navigationData.placeholder}/> 
-        {input.trim().length > 0 ?<Link style={{paddingTop: '5px'}} to={`/search?product=${input}`}><ReactIcons.IoSearchOutline /></Link> : <Link style={{paddingTop: '5px'}} to={`#`}><ReactIcons.IoSearchOutline /></Link>}                   
+        {input.trim().length > 0 ?<Link style={{paddingTop: '5px'}} to={`/search?product=${input}`}><ReactIcons.IoSearchOutline /></Link> : <Link onClick={(event) => event.preventDefault()} style={{paddingTop: '5px'}} to={`#`}><ReactIcons.IoSearchOutline /></Link>}                   
     </form>
 </span>;
 

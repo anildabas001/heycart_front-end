@@ -17,7 +17,7 @@ const DealSection = (props) => {
                     mrp: product.mrp,
                     price: product.price,
                     discount: product.discountPercentage,
-                    source: product.images[0],
+                    images: product.images,
                     id: product.id,
                     quantity: product.quantity,
                     stockQuantity: product.stockQuantity

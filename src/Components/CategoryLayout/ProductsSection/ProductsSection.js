@@ -13,13 +13,15 @@ const ProductsSection = (props) => {
                     mrp: product.mrp,
                     price: product.price,
                     discount: product.discountPercentage,
-                    source: product.images[0],
+                    images: product.images,
                     id: product.id,
                     quantity: product.quantity,
                     stockQuantity: product.stockQuantity,
 
                 }}/>)}
-
+            <div style={{clear: 'both', textAlign: 'center'}}>
+                <p className={classes.LoadText}>Load More</p>
+            </div>            
 
             </div>
         </div>

@@ -18,7 +18,7 @@ const CollapsibleControl = (props) => {
 
     return (
         <>
-            <div style={{marginBottom: '20px'}} onClick={collapseHandler} className={classes.CollapseTitle}>{props.title} <span className={classes.CollapsibleIcon}>{icon}</span></div>
+            <div style={{marginBottom: '5px'}} onClick={collapseHandler} className={classes.CollapseTitle}>{props.title} <span className={classes.CollapsibleIcon}>{icon}</span></div>
             <div className={collapseClass}>
                 {props.children}
             </div>
