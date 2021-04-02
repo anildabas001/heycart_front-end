@@ -19,10 +19,11 @@ const ProductsSection = (props) => {
                     stockQuantity: product.stockQuantity,
 
                 }}/>)}
-            <div style={{clear: 'both', textAlign: 'center'}}>
-                <p className={classes.LoadText}>Load More</p>
-            </div>            
 
+                {/* {props.newProductCount >= props.productLimit ? <div style={{clear: 'both', textAlign: 'center'}}>
+                        <p onClick={props.loadMoreHandler} className={classes.LoadText}>Load More</p>
+                    </div> : null
+                }                        */}
             </div>
         </div>
     );

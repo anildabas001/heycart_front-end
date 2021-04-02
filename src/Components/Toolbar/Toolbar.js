@@ -6,6 +6,7 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import SearchBar from '../NavigationItems/NavigationItem/NavSearchbar/NavSearchbar';
 import NavLink from '../NavigationItems/NavigationItem/NavLink/NavLink';
 import HamBurger from '../HamBurger/HamBurger';
+import {Link} from 'react-router-dom';
 import NavSearchbar from '../NavigationItems/NavigationItem/NavSearchbar/NavSearchbar';
 
 const Toolbar = (props) => {
@@ -13,7 +14,7 @@ const Toolbar = (props) => {
         <div className={classes.Toolbar}>             
             <HamBurger crossHamBurger={props.crossHamBurger} clickHandler={props.sideBarHandler} />
             <div className={classes.IconContainer}>
-                <Icon source ={heyCartLogo} description='HeyCart logo'/>
+                <Link to="/"><Icon source ={heyCartLogo} description='HeyCart logo'/></Link>
             </div>            
             <nav>
                 <NavigationItems />                                
