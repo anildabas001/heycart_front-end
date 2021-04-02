@@ -7,19 +7,20 @@ import CollapsibleControl from '../../UI/CollapsibleControl/CollapsibleControl';
 const FilterSection = (props) => {    
     const titleElement = <p className={classes.FilterHeading}>Filters</p>;
     return (
-    <>
+    <form onSubmit={props.filterFormHandler}>
+        <div className= {classes.FilterSection}>
         {
-            props.productCount > 0 ? <div className= {classes.FilterSection}>
-                <form onSubmit={props.filterFormHandler}>
-                    <CollapsibleControl title={titleElement}>
-                        {props.filter.map((filterElement) => <Filter key={filterElement.heading} heading={filterElement.heading} filterValues={filterElement.options}/>)}            
-                        <Button >Apply Filters</Button>
-                    </CollapsibleControl>
-                </form>                    
-            </div>          
+            props.filter[0].options.length > 0 ?                 
+                <CollapsibleControl title={titleElement}>
+                    <div style={{minHeight: '350px'}}>
+                        {props.filter.map((filterElement) => <Filter key={filterElement.heading} heading={filterElement.heading} filterValues={filterElement.options}/>)}  
+                    </div>
+                    <Button >Apply Filters</Button>
+                </CollapsibleControl>
           : null  
         }
-    </>  
+        </div>        
+    </form> 
     );
 }
 

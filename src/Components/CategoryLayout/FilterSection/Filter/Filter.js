@@ -3,7 +3,6 @@ import classes from './Filter.module.css';
 import CollapsibleControl from '../../../UI/CollapsibleControl/CollapsibleControl';
 
 const Filter = (props) => {
-    console.log(props.filterValues);
     return (<section className={classes.Filter}>
         <p style={{borderBottom: '1px solid #eee'}} className={classes.Heading}>{props.heading}</p>
         {props.filterValues.map((option, index) => {

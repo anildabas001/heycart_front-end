@@ -13,7 +13,7 @@ const AuthenticationForm = (props) => {
 
     return (
     <div className={classes.AuthenticationForm}>
-        <Icon source={HeyCartLogo} description='HeyCart Logo'></Icon>
+        <Link to='/'><Icon source={HeyCartLogo} description='HeyCart Logo'></Icon></Link>
         <div className={classes.FormContainer}>
             <h2>{props.heading}</h2>
             <form onSubmit={props.formSubmitHandler}>                

@@ -87,13 +87,13 @@ const categoryReducer = (state, action) => {
 const Category = (props) => {
   const pageHeading = props.match.params.category;
   const prevPageHeadingRef = useRef();
-  const prevOffsetRef = useRef();
+  //const prevOffsetRef = useRef();
   //const [productsURL, updateProductsURL] = useState(`http://localhost:3001/heyCart/api/v1/products/parent-category/${pageHeading}?selectFields=-description,-primaryImage,-organic,-variants`);
-  const paginateURL = useState('');
+  //const paginateURL = useState('');
   //const [pageOffset, updatePageOffset] = useState(1);
   let [newProductCount, updatenewProductCount] = useState(0);
   //const [loadMore, updateLoadMoreStatus] = useState(false);
-  const productLimit = 12;
+  //const productLimit = 12;
 
   // const loadMoreHandler = (event) => {
   //   updatePageOffset((offset) => {return offset = offset + 1;});
@@ -317,7 +317,7 @@ const Category = (props) => {
     let categoryElement = (
       <CategoryLayout>
           <FilterSection productCount={state.productList.length} filterFormHandler={filterFormHandler} filter={state.filter}/>
-          <ProductsSection productLimit={productLimit} newProductCount={newProductCount} productList={state.productList} pageHeading={pageHeading.replace(/\b\w/g, l => l.toUpperCase())}/> 
+          <ProductsSection newProductCount={newProductCount} productList={state.productList} pageHeading={pageHeading.replace(/\b\w/g, l => l.toUpperCase())}/> 
       </CategoryLayout>  
     );
     

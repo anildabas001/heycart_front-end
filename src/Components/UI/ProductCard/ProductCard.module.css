@@ -110,26 +110,25 @@
     .ProductCard {
         float:none;
         display: inline-block;
-        width: 190px;
-        margin: 8px auto;
+        width: 180px;
     }
 }
 
 @media only screen and (max-width: 692px) {
     .ProductCard {
         width: 180px;
-        margin: 8px auto;
+        margin: 2px;
     }
 }
 
-@media only screen and (max-width: 675px) {
+/* @media only screen and (max-width: 675px) {
     .ProductCard {
         width: 230px;
         margin: 8px auto;
     }
-}
+} */
 
-@media only screen and (max-width: 656px) {
+@media only screen and (max-width: 678px) {
     .ProductCard {
         width: 230px;
         margin: 8px auto;

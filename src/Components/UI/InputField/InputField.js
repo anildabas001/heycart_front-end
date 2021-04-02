@@ -21,9 +21,12 @@ const InputField = (props, ref) => {
                 <div className={classes.InputFieldContainer}>
                     <div className={classes.FieldRow}>
                         <label htmlFor={props.fieldAttributes.name}>{props.fieldAttributes.label}</label>
-                        <input {...props.fieldAttributes} ref={ref} className={inputClass} value={props.value} id={props.fieldAttributes.name} onChange={props.changeHandler} />
+                        <div className={classes.InputDiv}>                            
+                            <input {...props.fieldAttributes} ref={ref}  value={props.value} id={props.fieldAttributes.name} onChange={props.changeHandler} />
+                            {props.errorMessage && props.showErrorMessage ? <ErrorField>{props.errorMessage}</ErrorField>: null}
+                        </div>
                     </div>                    
-                    {props.errorMessage && props.showErrorMessage ? <ErrorField>{props.errorMessage}</ErrorField>: null}
+                    
                 </div>
             );
     }

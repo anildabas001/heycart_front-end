@@ -13,7 +13,7 @@ import ResponsiveSearchbar from './Components/ResponsiveSerachbar/ResponsiveSera
 import ProductPage from './Containers/ProductPage/ProductPage';
 import Cart from './Containers/Cart/cart';
 import {connect} from 'react-redux';
-import {syncCart, loadCartDb} from './Store/Actions/CartAction';
+import {syncCart} from './Store/Actions/CartAction';
 
 function App(props) {
 
@@ -59,12 +59,11 @@ function App(props) {
   //    })
   //  };
 
-  const searchClickHandler = (event) => {
-    console.log(event.target);
-  }
+  // const searchClickHandler = (event) => {
+  // }
   
   return (
-    <NavigationContext.Provider value={{searchOptions: state.searchOptions, searchClickHandler}}>
+    <NavigationContext.Provider value={{searchOptions: state.searchOptions}}>
       <Toolbar crossHamBurger={sidebarState.showSideBar} sideBarHandler={sideBarHandler}/>
       <div>
         <ResponsiveSearchbar navigationData={
@@ -89,8 +88,7 @@ function App(props) {
 
 const mapDispatchToProps = (dispatch => {
   return {
-    syncCartData: () => dispatch(syncCart()),
-    //loadCartDb: () => dispatch(loadCartDb())
+    syncCartData: () => dispatch(syncCart())
    }
 });
 

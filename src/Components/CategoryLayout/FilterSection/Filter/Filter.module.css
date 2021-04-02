@@ -5,7 +5,7 @@
 }
 
 .Filter {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .filterField {
@@ -17,6 +17,7 @@
 }
 
 .filterField label {
+    text-transform: capitalize;
     cursor: pointer;
     font-size: 0.9rem;
     padding-left: 4px;
