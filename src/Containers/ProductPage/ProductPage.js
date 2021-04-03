@@ -7,6 +7,7 @@ import {updateCart, updateCartDb} from '../../Store/Actions/CartAction';
 import {useLocation} from "react-router-dom";
 import Loader from '../../Components/UI/Loader/Loader';
 import {connect} from 'react-redux';
+import ProductPageHeading from '../../Components/UI/ProductPageHeading/ProductPageHeading';
 
 const ProductPage = (props) => {
     let [loader, setLoader] = useState(true);
@@ -101,6 +102,7 @@ const ProductPage = (props) => {
             {
                 loader ? <Loader /> : 
                 <ProductPageContainer>
+                    <ProductPageHeading heading={productData.name} />
                     <ProductImageSection imageSource={productData.primaryImage} productName={productData.name} />
                     <ProductDetailSection cartQuantity={cartQuantity} onClickDecrease={onClickDecrease} onClickIncrease={onClickIncrease} addToCartHandler={addToCartHandler}  product={productData}/>
                     <ProductDescription description={productData.description}/>
