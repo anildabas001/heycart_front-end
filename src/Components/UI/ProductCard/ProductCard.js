@@ -105,7 +105,7 @@ const ProductCard = (props) => {
     return(
         <Link
             to={{
-                pathname: `/product/${slugify(props.product.name)}`,
+                pathname: `/product/${slugify(props.product.name)}/${props.product.id}`,
                 state: { id: props.product.id}
             }}>
             <div className={classes.ProductCard}>

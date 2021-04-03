@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './ProductDetailSection.module.css';
 import Button from '../../UI/Button/Button';
+import QuantityControl from '../../UI/QuantityControl/QuantityControl';
 
 const ProductDetailSection = (props) => {
 
@@ -19,7 +20,10 @@ const ProductDetailSection = (props) => {
             {priceElement}
             <p style={{marginTop: '5px', marginBottom: '25px'}}>Quantity: {`${props.product.quantity.value} ${props.product.quantity.unit}`}</p> 
 
-            <Button type='secondary'>Add to Cart</Button>
+            {
+                props.cartQuantity > 0 ? <div style={{width:'290px'}}><QuantityControl value={props.cartQuantity} onClickIncrease={props.onClickIncrease} onClickDecrease={props.onClickDecrease}/></div>: 
+                props.product.stockQuantity <= 0 ? <p className={classes.stockOut}>Out of Stock</p> : <Button type='secondary' onClickHandler={props.addToCartHandler}>Add to Cart</Button>
+            }
 
             <div className={classes.GeneralInfoSection}>
                 <p className={classes.GeneralInfoHeading}>General Information</p>

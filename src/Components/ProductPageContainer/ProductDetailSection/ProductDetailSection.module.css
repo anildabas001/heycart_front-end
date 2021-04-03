@@ -75,3 +75,12 @@
     width: 60%;
     text-align:justify;
 }
+
+.stockOut {
+    width: 40%;
+    font-weight: 400;
+    color: #c1272d;
+    border: 1px solid #c1272d;
+    padding: 8px;
+    text-align: center;
+}

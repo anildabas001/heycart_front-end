@@ -77,7 +77,7 @@ function App(props) {
         <Switch>  
           <Route path='/' exact  component={Home} />
           <Route path='/search' exact  component={SearchPage} />          
-          <Route path='/product/:productName?' exact component={ProductPage} />
+          <Route path='/product/:productName/:productid' exact component={ProductPage} />
           <Route path='/cart' exact  component={Cart} />
           <Route path='/:category' exact  component={Category} />
         </Switch>
