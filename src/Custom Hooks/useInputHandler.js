@@ -1,5 +1,4 @@
 import React, {useCallback} from 'react';
-import { IoBandage } from 'react-icons/io5';
 
 const useInputHandler = (states, updateStates) => {
 

@@ -25,8 +25,7 @@ const InputField = (props, ref) => {
                             <input {...props.fieldAttributes} ref={ref}  value={props.value} id={props.fieldAttributes.name} onChange={props.changeHandler} />
                             {props.errorMessage && props.showErrorMessage ? <ErrorField>{props.errorMessage}</ErrorField>: null}
                         </div>
-                    </div>                    
-                    
+                    </div> 
                 </div>
             );
     }

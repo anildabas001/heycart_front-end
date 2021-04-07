@@ -18,7 +18,7 @@ const AuthenticationForm = (props) => {
             <h2>{props.heading}</h2>
             <form onSubmit={props.formSubmitHandler}>                
                 {props.children}
-                <ErrorField>{props.formErrorMessage}</ErrorField>
+                <ErrorField style={{textAlign: 'center'}}>{props.formErrorMessage}</ErrorField>
                 <Button>{props.AuthFormType}</Button>
             </form>
             {props.AuthFormType.toLowerCase() === 'login' ? <p className={classes.AuthLink}><Link to='/'>{'Forgot Password?'}</Link></p> : null}

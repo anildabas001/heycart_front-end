@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useEffect, useMemo} from 'react';
 import {withRouter} from 'react-router';
-import useInputHandler from '../../Custom Hooks/useInputHandler';
 import AuthenticationForm from '../../Components/UI/AuthenticationForm/AuthenticationForm';
 import InputField from '../../Components/UI/InputField/InputField';
 import * as queryString from 'query-string';
@@ -8,9 +7,10 @@ import {connect} from 'react-redux';
 import {login} from '../../Store/Actions/AuthActions';
 import {Redirect} from 'react-router';
 import Loader from '../../Components/UI/Loader/Loader';
+import {fieldChangeHandler, formSubmitHandler} from '../../utils/forms';
 
 const Login = (props) => {
-    const [fieldChangeHandler, formSubmitHandler] = useInputHandler();  
+
     const [formErrorMessage, setFormErrorMessage] = useState('');
     const [LoaderState, setLoaderState] = useState(false);
     const [emailState, setEmailState] = useState({
@@ -60,7 +60,6 @@ const Login = (props) => {
             setLoaderState(false);   
          }
      }, []);
-
     const redirectAddress = queryString.parse(props.location.search).redirectTo || '/';
 
     const AuthForm = (

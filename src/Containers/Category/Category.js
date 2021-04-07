@@ -85,7 +85,7 @@ const categoryReducer = (state, action) => {
 }
 
 const Category = (props) => {
-  const pageHeading = props.match.params.category;
+  const pageHeading = decodeURIComponent(props.match.params.category);
   const prevPageHeadingRef = useRef();
   //const prevOffsetRef = useRef();
   //const [productsURL, updateProductsURL] = useState(`http://localhost:3001/heyCart/api/v1/products/parent-category/${pageHeading}?selectFields=-description,-primaryImage,-organic,-variants`);

@@ -1,4 +1,3 @@
-import './App.css';
 import React, {useEffect, useState} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Home from './Containers/Home/Home';
@@ -11,9 +10,11 @@ import BackScreen from './Components/UI/BackScreen/BackScreen';
 import SearchPage from './Containers/SearchPage/Searchpage';
 import ResponsiveSearchbar from './Components/ResponsiveSerachbar/ResponsiveSerachbar';
 import ProductPage from './Containers/ProductPage/ProductPage';
+import Logout from './Containers/Logout/Logout';
 import Cart from './Containers/Cart/cart';
 import {connect} from 'react-redux';
 import {syncCart} from './Store/Actions/CartAction';
+import Profile from './Containers/Profile/Profile';
 
 function App(props) {
 
@@ -35,33 +36,10 @@ function App(props) {
    useEffect(() => {
     if (props.isLoggedin) {
       props.syncCartData();
-      //props.loadCartDb();
     }
   }, [props.isLoggedin]);
 
-   
-  //  const searchChangeHandler = (event) => {
-  //    const updatedSearchOptions = [];
-  //    fetch(`http://localhost:3001/heycart/api/v1/products?search=${event.target.value}&selectFields=name`)
-  //    .then(response => response.json())
-  //    .then(response => {
-  //      if(response.data.length > 0) {
-  //        response.data.map(value => {
-  //          updatedSearchOptions.push(value.name);         
-  //        });        
-  //        updateState(state => {
-  //          return {
-  //            ...state,
-  //            searchOptions: [...updatedSearchOptions]
-  //          }
-  //        })
-  //      }      
-  //    })
-  //  };
-
-  // const searchClickHandler = (event) => {
-  // }
-  
+ 
   return (
     <NavigationContext.Provider value={{searchOptions: state.searchOptions}}>
       <Toolbar crossHamBurger={sidebarState.showSideBar} sideBarHandler={sideBarHandler}/>
@@ -79,6 +57,8 @@ function App(props) {
           <Route path='/search' exact  component={SearchPage} />          
           <Route path='/product/:productName/:productid' exact component={ProductPage} />
           <Route path='/cart' exact  component={Cart} />
+          <Route path='/myprofile' exact  component={Profile} />
+          <Route path='/logout' exact  component={Logout} />
           <Route path='/:category' exact  component={Category} />
         </Switch>
       <Footer />

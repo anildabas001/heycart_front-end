@@ -7,10 +7,9 @@ import {Redirect} from 'react-router';
 import * as queryString from 'query-string';
 import {connect} from 'react-redux';
 import {signup} from '../../Store/Actions/AuthActions';
+import {fieldChangeHandler, formSubmitHandler} from '../../utils/forms';
 
 const Signup = (props) => {
-
-    const [fieldChangeHandler, formSubmitHandler] = useInputHandler();  
     const [formErrorMessage, setFormErrorMessage] = useState('');
     const [LoaderState, setLoaderState] = useState(false);
 

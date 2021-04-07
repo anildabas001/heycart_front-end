@@ -36,7 +36,7 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 915px) {
     .hamBurger {
         display: flex;
         height: 40px;

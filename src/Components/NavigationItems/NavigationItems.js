@@ -12,7 +12,7 @@ const Navigation = (props) => {
     let loginLink = <NavLink navigationData={
         {
             name: 'Login',
-            linkTo: '/login'+ `?redirectTo=${window.location.pathname}${window.location.search}`                
+            linkTo: '/login'+ `?redirectTo=${encodeURIComponent(window.location.pathname + window.location.search)}`                
         }
     } /> ;
 
@@ -26,7 +26,7 @@ const Navigation = (props) => {
                  dropdownData: [
                  {
                      linkName: 'My Profile',
-                     linkTo: '/profile'                    
+                     linkTo: '/myprofile'                    
                  },
                  {
                      linkName: 'My Order',
@@ -34,7 +34,7 @@ const Navigation = (props) => {
                  },
                  {
                      linkName: 'Logout',
-                     linkTo: '/logout'
+                     linkTo: `/logout?redirectTo=${encodeURIComponent(window.location.pathname + window.location.search)}`
                  }
              ]
             } 
@@ -53,23 +53,23 @@ const Navigation = (props) => {
                 dropdownData: [
                 {
                     linkName: 'Fruits & Vegetables',
-                    linkTo: '/fruits & vegetables'                    
+                    linkTo: encodeURIComponent('fruits & vegetables')                   
                 },
                 {
                     linkName: 'Beverages',
-                    linkTo: '/beverages'
+                    linkTo: 'beverages'
                 },
                 {
                     linkName: 'Snacks',
-                    linkTo: '/snacks'
+                    linkTo: 'snacks'
                 },                
                 {
                     linkName: 'Eggs, Meat & Fish',
-                    linkTo: '/Eggs, Meat & Fish'
+                    linkTo: encodeURIComponent('Eggs, Meat & Fish')
                 },
                 {
                     linkName: 'Bakery & Dairy',
-                    linkTo: '/Bakery & Dairy'
+                    linkTo: encodeURIComponent('Bakery & Dairy')
                 }
             ]
            } 

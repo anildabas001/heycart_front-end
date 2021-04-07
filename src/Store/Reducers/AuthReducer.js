@@ -28,7 +28,7 @@ const authReducer = (state=initialState, action) => {
                 isLoggedin: action.isLoggedin,
                 expiryTimer: action.expiryTimer             
             }
-            
+
             localStorage.setItem("authenticationData", JSON.stringify(updatedState));
             return updatedState;
         case 'LOGOUT': 
@@ -44,6 +44,15 @@ const authReducer = (state=initialState, action) => {
             }
             
             return updatedLogoutState;
+
+        case 'UPDATE_GENERAL_INFO': 
+            const updatedStateGeneral = {
+                ...state,
+                name: action.name,            
+            }
+
+            localStorage.setItem("authenticationData", JSON.stringify(updatedStateGeneral));
+            return updatedStateGeneral;
 
         default: 
             return state;

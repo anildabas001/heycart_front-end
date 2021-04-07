@@ -32,7 +32,6 @@ export const updateCart = (product, quantity) => {
         }        
         
         localStorage.setItem('cart', JSON.stringify(cartState));
-        console.log(JSON.parse(localStorage.getItem('cart')))
         dispatch({type: 'UPDATE_CART', cartState});
     }
 }
@@ -63,8 +62,7 @@ export const syncCart = () => {
                         quantity: localCart.products[i].quantity
                     })
                 });
-            }
-
+            }            
         }
 
         const response = await fetch(`http://localhost:3001/heyCart/api/v1/user/cart`, {
@@ -80,15 +78,15 @@ export const syncCart = () => {
             });
 
         const updatedCartData = await response.json();
-        dispatch({type: 'UPDATE_CART', cartState: updatedCartData.data});
-             
+        localStorage.removeItem('cart');
+        dispatch({type: 'UPDATE_CART', cartState: updatedCartData.data});            
 
     }
 }
 
 export const updateCartDb = (productId, quantity) => {
     return async (dispatch, getState) => {       
-        await fetch(`http://localhost:3001/heyCart/api/v1/user/cart`,
+   const bang = await fetch(`http://localhost:3001/heyCart/api/v1/user/cart`,
             {
                 method:'PATCH',
                 headers: {
@@ -103,7 +101,9 @@ export const updateCartDb = (productId, quantity) => {
                     productId,
                     quantity
                 })
-            });        
+            });   
+            
+            console.log(await bang.json())
 
         const response = await fetch(`http://localhost:3001/heyCart/api/v1/user/cart`, {
             method:'GET',

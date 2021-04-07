@@ -17,8 +17,10 @@ const ProductCard = (props) => {
         event.stopPropagation();
         setTimeout(() => {
             updateCartQuantity(state => {
+                console.log('m', state);
                 if (state > 0) {
-                    state--;                
+                    state = state - 1;  
+                    console.log('me', state);              
                 }
                 return state;            
             });
@@ -28,6 +30,7 @@ const ProductCard = (props) => {
     const onClickIncrease = (event) => {
         event.preventDefault();        
         event.stopPropagation();
+        console.log('lo')
         setTimeout(() => {
             updateCartQuantity(state => {
                 if (state < props.product.stockQuantity) {
@@ -49,17 +52,25 @@ const ProductCard = (props) => {
     }
 
     const filterName = (name) => {
-        if(name.length < 16) {
+        if(name.length < 14) {
             return name;
         }
         else {
-            let nameArray = name.split();
-            let updatedName = nameArray.slice(-16).join('') + '...';
-            return updatedName;
+            let nameArray = name.split('');
+            let updatedName = nameArray.map((char, index) => {
+                if(index < 14) {
+                    return char;
+                }
+                else if (index === 14){
+                    return '...';
+                }
+            });
+            console.log(nameArray, updatedName);
+            return updatedName.join('');
         }
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         if (cartQuantity != -1 && props.isLoggedin) {
             props.updateCartDb(props.product.id, cartQuantity);
         }
@@ -88,6 +99,7 @@ const ProductCard = (props) => {
     // }, [cartQuantity]);
 
     useEffect(() =>{
+        console.log('cart', props.cartProducts);
         const currentProduct = props.cartProducts ? props.cartProducts.filter(cartProduct => cartProduct.product.id === props.product.id): null;
         
         if (currentProduct && currentProduct.length > 0) {
